@@ -1,18 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4451" systemVersion="13A461" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3676"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--Morse Torch View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="YSViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="YSMorseTorchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3ei-lf-uDt"/>
+                        <viewControllerLayoutGuide type="bottom" id="s9K-Wy-top"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a text to morsify [a-z] [0-9]" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="3gX-5r-I14">
+                                <rect key="frame" x="20" y="48" width="528" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="aWu-oj-Q3R"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="gz7-aP-RHh"/>
+                                </connections>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t4o-9n-q8X">
+                                <rect key="frame" x="219" y="86" width="60" height="214"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92306385869999996" green="0.92306385869999996" blue="0.92306385869999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="30Z-6K-h6k"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="CVK-3H-20b"/>
+                                </connections>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9Q-MK-hSw">
+                                <rect key="frame" x="289" y="86" width="60" height="214"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="mgd-mU-k2i"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="oAC-nM-kiZ"/>
+                                </connections>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="t4o-9n-q8X" firstAttribute="top" secondItem="3gX-5r-I14" secondAttribute="bottom" constant="8" id="GPA-l4-3Ha"/>
+                            <constraint firstAttribute="centerX" secondItem="c9Q-MK-hSw" secondAttribute="centerX" constant="-35" id="Lfg-7x-W4Q"/>
+                            <constraint firstItem="s9K-Wy-top" firstAttribute="top" secondItem="c9Q-MK-hSw" secondAttribute="bottom" constant="20" id="P48-s1-qCe"/>
+                            <constraint firstItem="s9K-Wy-top" firstAttribute="top" secondItem="t4o-9n-q8X" secondAttribute="bottom" constant="20" id="PKJ-1d-jqV"/>
+                            <constraint firstItem="3gX-5r-I14" firstAttribute="top" secondItem="3ei-lf-uDt" secondAttribute="bottom" constant="28" id="SXu-vc-eHZ"/>
+                            <constraint firstItem="3gX-5r-I14" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="YsX-Qf-UMD"/>
+                            <constraint firstItem="c9Q-MK-hSw" firstAttribute="top" secondItem="3gX-5r-I14" secondAttribute="bottom" constant="8" id="knD-0e-UJo"/>
+                            <constraint firstAttribute="centerX" secondItem="t4o-9n-q8X" secondAttribute="centerX" constant="35" id="q3b-by-ljZ"/>
+                            <constraint firstAttribute="trailing" secondItem="3gX-5r-I14" secondAttribute="trailing" constant="20" symbolic="YES" id="qiy-4g-nAR"/>
+                        </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="inputTextField" destination="3gX-5r-I14" id="1rH-OE-h18"/>
+                        <outlet property="originalTextView" destination="t4o-9n-q8X" id="WoE-Ne-nJY"/>
+                        <outlet property="outputTextView" destination="c9Q-MK-hSw" id="Uad-ds-QRr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

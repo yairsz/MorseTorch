@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NSString+MorseCode.h"
 
-@interface YSViewController : UIViewController
+@interface YSMorseTorchViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
+
 
 @end

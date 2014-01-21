@@ -14,13 +14,14 @@
 		B04D2640188DC8D2000574E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D263F188DC8D2000574E0 /* main.m */; };
 		B04D2644188DC8D2000574E0 /* YSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D2643188DC8D2000574E0 /* YSAppDelegate.m */; };
 		B04D2647188DC8D2000574E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04D2645188DC8D2000574E0 /* Main.storyboard */; };
-		B04D264A188DC8D2000574E0 /* YSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D2649188DC8D2000574E0 /* YSViewController.m */; };
+		B04D264A188DC8D2000574E0 /* YSMorseTorchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D2649188DC8D2000574E0 /* YSMorseTorchViewController.m */; };
 		B04D264C188DC8D2000574E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04D264B188DC8D2000574E0 /* Images.xcassets */; };
 		B04D2653188DC8D2000574E0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04D2652188DC8D2000574E0 /* XCTest.framework */; };
 		B04D2654188DC8D2000574E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04D2633188DC8D2000574E0 /* Foundation.framework */; };
 		B04D2655188DC8D2000574E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04D2637188DC8D2000574E0 /* UIKit.framework */; };
 		B04D265D188DC8D2000574E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B04D265B188DC8D2000574E0 /* InfoPlist.strings */; };
 		B04D265F188DC8D2000574E0 /* MorseTorchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D265E188DC8D2000574E0 /* MorseTorchTests.m */; };
+		B04D266A188DCBC7000574E0 /* NSString+MorseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B04D2669188DCBC7000574E0 /* NSString+MorseCode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,16 @@
 		B04D2642188DC8D2000574E0 /* YSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSAppDelegate.h; sourceTree = "<group>"; };
 		B04D2643188DC8D2000574E0 /* YSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSAppDelegate.m; sourceTree = "<group>"; };
 		B04D2646188DC8D2000574E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B04D2648188DC8D2000574E0 /* YSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSViewController.h; sourceTree = "<group>"; };
-		B04D2649188DC8D2000574E0 /* YSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSViewController.m; sourceTree = "<group>"; };
+		B04D2648188DC8D2000574E0 /* YSMorseTorchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YSMorseTorchViewController.h; sourceTree = "<group>"; };
+		B04D2649188DC8D2000574E0 /* YSMorseTorchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YSMorseTorchViewController.m; sourceTree = "<group>"; };
 		B04D264B188DC8D2000574E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B04D2651188DC8D2000574E0 /* MorseTorchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MorseTorchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04D2652188DC8D2000574E0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B04D265A188DC8D2000574E0 /* MorseTorchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MorseTorchTests-Info.plist"; sourceTree = "<group>"; };
 		B04D265C188DC8D2000574E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B04D265E188DC8D2000574E0 /* MorseTorchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MorseTorchTests.m; sourceTree = "<group>"; };
+		B04D2668188DCBC7000574E0 /* NSString+MorseCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MorseCode.h"; sourceTree = "<group>"; };
+		B04D2669188DCBC7000574E0 /* NSString+MorseCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MorseCode.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +118,10 @@
 				B04D2642188DC8D2000574E0 /* YSAppDelegate.h */,
 				B04D2643188DC8D2000574E0 /* YSAppDelegate.m */,
 				B04D2645188DC8D2000574E0 /* Main.storyboard */,
-				B04D2648188DC8D2000574E0 /* YSViewController.h */,
-				B04D2649188DC8D2000574E0 /* YSViewController.m */,
+				B04D2648188DC8D2000574E0 /* YSMorseTorchViewController.h */,
+				B04D2649188DC8D2000574E0 /* YSMorseTorchViewController.m */,
+				B04D2668188DCBC7000574E0 /* NSString+MorseCode.h */,
+				B04D2669188DCBC7000574E0 /* NSString+MorseCode.m */,
 				B04D264B188DC8D2000574E0 /* Images.xcassets */,
 				B04D263A188DC8D2000574E0 /* Supporting Files */,
 			);
@@ -250,9 +255,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B04D264A188DC8D2000574E0 /* YSViewController.m in Sources */,
+				B04D264A188DC8D2000574E0 /* YSMorseTorchViewController.m in Sources */,
 				B04D2644188DC8D2000574E0 /* YSAppDelegate.m in Sources */,
 				B04D2640188DC8D2000574E0 /* main.m in Sources */,
+				B04D266A188DCBC7000574E0 /* NSString+MorseCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
