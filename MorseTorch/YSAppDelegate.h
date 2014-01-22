@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YSTorchController.h"
 
 @interface YSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) YSTorchController *sharedTorch;
 
 @end

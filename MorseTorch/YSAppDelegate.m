@@ -7,12 +7,21 @@
 //
 
 #import "YSAppDelegate.h"
+#import "YSTorchController.h"
 
 @implementation YSAppDelegate
+
+- (YSTorchController *) sharedTorch {
+    if (!_sharedTorch) {
+        _sharedTorch = [YSTorchController sharedTorch];
+    }
+    return _sharedTorch;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
     return YES;
 }
 							
