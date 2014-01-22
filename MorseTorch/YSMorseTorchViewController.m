@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UILabel *morseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *characterLabel;
+@property (weak, nonatomic) IBOutlet UISlider *speedSlider;
 @property (nonatomic) NSArray * morseCodeArray;
 @property (weak, nonatomic) YSTorchController * sharedTorch;
 @property (strong, nonatomic) NSString * stringToMorsify;
@@ -75,49 +76,80 @@
 - (IBAction)stopButtonPressed:(UIButton *)sender {
     [morseCodeQueue cancelAllOperations];
 }
+- (IBAction)speedSliderChangde:(UISlider *)sender {
+    self.unit = sender.value;
+}
 
 -(void) startMorseTorchSequence
 {
+    NSOperationQueue * mainQueue = [NSOperationQueue mainQueue];
     morseCodeQueue = [NSOperationQueue new];
     [morseCodeQueue setMaxConcurrentOperationCount:1];
     __weak YSMorseTorchViewController * weakSelf = self;
-    [morseCodeQueue addOperationWithBlock:^{
-        NSOperationQueue * mainQueue = [NSOperationQueue mainQueue];
-        NSOperation * currentOperation = [[morseCodeQueue operations] lastObject];
-        
             for (int i = 0; i < weakSelf.morseCodeArray.count; i++) {
-                if (!currentOperation.isCancelled){
-                    NSString * character = weakSelf.morseCodeArray[i];
-                    [mainQueue addOperationWithBlock:^{
-                        [weakSelf updateCharacterWithIndex:i];
-                    }];
-                    for (int j = 0; j < character.length; j++) {
-                        NSString * morseCharacter = [character substringWithRange:NSMakeRange(j, 1)];
-                        if ([morseCharacter isEqualToString:@"."]) {
+                    //loop morse each letter on the morse array
+                
+                NSString * character = weakSelf.morseCodeArray[i]; //get each character
+                NSBlockOperation * blockOperation = [NSBlockOperation new];
+                
+                
+                for (int j = 0; j < character.length; j++) {
+                    //loop each part of the morse string\
+                    
+                    NSString * morseCharacter = [character substringWithRange:NSMakeRange(j, 1)]; //get each part
+                    if ([morseCharacter isEqualToString:@"."]) {
+                        NSLog(@"dot if");
+                        [blockOperation addExecutionBlock:^{
                             [weakSelf dot];
-                            
-                        } else if ([morseCharacter isEqualToString:@"-"]) {
-                            [weakSelf dash];
-                        } else if ([morseCharacter isEqualToString:@" "]) {
-                            [weakSelf characterSpace];
-                            continue;
-                        }
-                        if (!j == (character.length -1)) {
+                            NSLog(@"part space if");
                             [weakSelf partSpace];
-                        }
+                        }];
+                    } else if ([morseCharacter isEqualToString:@"-"]) {
+                        NSLog(@"dash if");
+                        [blockOperation addExecutionBlock:^{
+                            [weakSelf dash];
+                            NSLog(@"part space if");
+                            [weakSelf partSpace];
+                        }];
+                    } else if ([morseCharacter isEqualToString:@" "]) {
+                        
+                        NSLog(@"word space if ");
+                        [blockOperation addExecutionBlock:^{
+                            [weakSelf wordSpace];
+                            NSLog(@"part space if");
+                            [weakSelf partSpace];
+                        }];
                     }
-                [weakSelf wordSpace];
+                    
+//                    if (j < character.length -1) {
+                    
+                    
+//                        [morseCodeQueue addOperationWithBlock:^{
+
+//                            
+//                        }];
+//                    }
                 }
+                
+                NSLog(@"character space");
+                [blockOperation addExecutionBlock:^{
+                    
+                    [weakSelf characterSpace];
+                    
+                }];
+            [morseCodeQueue addOperationWithBlock:^{
+      
+                [mainQueue addOperationWithBlock:^{
+                    [weakSelf updateCharacterWithIndex:i];
+                }];
+            }];
+                
+                [morseCodeQueue addOperation:blockOperation];
+
+
         }
-        
-    }];
 }
 
--(void) stopMorseSequence
-{
-    [morseCodeQueue cancelAllOperations];
-    
-}
 
 - (void) updateCharacterWithIndex:(int) i {
     self.characterLabel.text = [self.stringToMorsify substringWithRange:NSMakeRange(i,1)];
@@ -128,12 +160,7 @@
     NSMutableAttributedString *attrOriginalText = [self.originalTextView.attributedText mutableCopy];
     [attrOriginalText setAttributes:nil range:NSMakeRange(0, attrOriginalText.length)];
     
-    NSShadow *shadow = [[NSShadow alloc] init];
-    [shadow setShadowColor: [UIColor whiteColor]];
-    [shadow setShadowOffset:CGSizeMake (3.0, 3.0)];
-    [shadow setShadowBlurRadius:1];
-    
-    int morseCharacterLength = self.morseLabel.text.length;
+    int morseCharacterLength = (int) self.morseLabel.text.length;
     
     
     [attrMorseText setAttributes:@{NSBackgroundColorAttributeName:[UIColor redColor]}
@@ -153,6 +180,7 @@
     [self.sharedTorch torchOn];
     usleep(self.unit);
     [self.sharedTorch torchOff];
+    NSLog(@"dot");
 }
 
 - (void) dash
@@ -160,20 +188,25 @@
     [self.sharedTorch torchOn];
     usleep(self.unit*3);
     [self.sharedTorch torchOff];
+    NSLog(@"dash");
+    
 }
 
 -(void) partSpace {
-    usleep(self.unit*2);
+    usleep(self.unit);
+    NSLog(@"partSpace");
 }
 
 - (void) characterSpace
 {
     usleep(self.unit * 3);
+    NSLog(@"characterSpace");
 }
 
 - (void) wordSpace
 {
-    usleep(self.unit * 7);
+    usleep(self.unit * 4);
+    NSLog(@"wordSpace");
 }
 
 #pragma mark - UITextFieldDelegate

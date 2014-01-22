@@ -1,0 +1,28 @@
+There is a Parent Class and a Child class.
+The parent class has a strong pointer to to child
+
+
+1. The Child declares protocol.
+2. Child declares a delegate protocol.
+3. Parent confrorms or implements protocol methods.
+4. Parent sets itself as delegate.
+4. Child calls methods on delegate.
+
+
+delegate property declaration is as follows:
+
+@property (unsafe_undefined) id <ProtocolName> delegate;
+
+protocol declaration:
+
+@protocol ProtocolName <NSObject>
+
+//no declaration defaults to required
+
+- (void) methodNameWithParameter: (id) parameter;
+
+@optional // optional methods
+
+- (void) optionalMethodName;
+
+@end
