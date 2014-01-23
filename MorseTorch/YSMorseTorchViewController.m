@@ -145,7 +145,7 @@
     [shadow setShadowOffset:CGSizeMake (3.0, 3.0)];
     [shadow setShadowBlurRadius:1];
     
-    int morseCharacterLength = self.morseLabel.text.length;
+    int morseCharacterLength = (int) self.morseLabel.text.length;
     
     
     [attrMorseText setAttributes:@{NSBackgroundColorAttributeName:[UIColor redColor]}
