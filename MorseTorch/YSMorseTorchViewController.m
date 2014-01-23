@@ -9,6 +9,7 @@
 #import "YSMorseTorchViewController.h"
 #import "YSTorchController.h"
 #import "YSAppDelegate.h"
+#import <ProgressHUD.h>
 
 #define INITIAL_UNIT 100000
 
@@ -120,8 +121,10 @@
                     }
                 [weakSelf wordSpace];
                 }
-        }
-        
+            }
+        [mainQueue addOperationWithBlock:^{
+            [ProgressHUD showSuccess:@"Success!"];
+        }];
     }];
 }
 
