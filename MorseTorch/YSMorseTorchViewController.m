@@ -102,19 +102,19 @@
                     for (int j = 0; j < character.length; j++) {
                         NSString * morseCharacter = [character substringWithRange:NSMakeRange(j, 1)];
                         if ([morseCharacter isEqualToString:@"."]) {
-                            NSLog(@"dot if");
+//                            NSLog(@"dot if");
                             [weakSelf dot];
                             
                         } else if ([morseCharacter isEqualToString:@"-"]) {
-                            NSLog(@"dash if");
+//                            NSLog(@"dash if");
                             [weakSelf dash];
                         } else if ([morseCharacter isEqualToString:@" "]) {
-                            NSLog(@"space if");
+//                            NSLog(@"space if");
                             [weakSelf characterSpace];
                             continue;
                         }
                         if (j < character.length -1) {
-                            NSLog(@"partspace if");
+//                            NSLog(@"partspace if");
                             [weakSelf partSpace];
                         }
                     }
@@ -165,7 +165,7 @@
     [self.sharedTorch torchOn];
     usleep(self.unit);
     [self.sharedTorch torchOff];
-    NSLog(@"dot");
+//    NSLog(@"dot");
 }
 
 - (void) dash
@@ -173,24 +173,24 @@
     [self.sharedTorch torchOn];
     usleep(self.unit*3);
     [self.sharedTorch torchOff];
-     NSLog(@"dash");
+//     NSLog(@"dash");
 }
 
 -(void) partSpace {
     usleep(self.unit*2);
-     NSLog(@"partspace");
+//     NSLog(@"partspace");
 }
 
 - (void) characterSpace
 {
     usleep(self.unit * 3);
-     NSLog(@"character space");
+//     NSLog(@"character space");
 }
 
 - (void) wordSpace
 {
     usleep(self.unit * 7);
-    NSLog(@"wordspace");
+//    NSLog(@"wordspace");
 }
 
 #pragma mark - UITextFieldDelegate
