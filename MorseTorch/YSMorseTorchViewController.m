@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UILabel *morseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *characterLabel;
+@property (weak, nonatomic) IBOutlet UISlider *speedSlider;
+
+
 @property (nonatomic) NSArray * morseCodeArray;
 @property (weak, nonatomic) YSTorchController * sharedTorch;
 @property (strong, nonatomic) NSString * stringToMorsify;
@@ -67,6 +70,11 @@
 
 
 #pragma mark - IB Actions
+- (IBAction)speedSliderChanged:(UISlider *)sender {
+    self.unit = sender.value;
+}
+
+
 - (IBAction)startButtonPressed:(UIButton *)sender {
     lastMorseEOL = 0;
     [self startMorseTorchSequence];
@@ -94,15 +102,19 @@
                     for (int j = 0; j < character.length; j++) {
                         NSString * morseCharacter = [character substringWithRange:NSMakeRange(j, 1)];
                         if ([morseCharacter isEqualToString:@"."]) {
+                            NSLog(@"dot if");
                             [weakSelf dot];
                             
                         } else if ([morseCharacter isEqualToString:@"-"]) {
+                            NSLog(@"dash if");
                             [weakSelf dash];
                         } else if ([morseCharacter isEqualToString:@" "]) {
+                            NSLog(@"space if");
                             [weakSelf characterSpace];
                             continue;
                         }
-                        if (!j == (character.length -1)) {
+                        if (j < character.length -1) {
+                            NSLog(@"partspace if");
                             [weakSelf partSpace];
                         }
                     }
@@ -153,6 +165,7 @@
     [self.sharedTorch torchOn];
     usleep(self.unit);
     [self.sharedTorch torchOff];
+    NSLog(@"dot");
 }
 
 - (void) dash
@@ -160,20 +173,24 @@
     [self.sharedTorch torchOn];
     usleep(self.unit*3);
     [self.sharedTorch torchOff];
+     NSLog(@"dash");
 }
 
 -(void) partSpace {
     usleep(self.unit*2);
+     NSLog(@"partspace");
 }
 
 - (void) characterSpace
 {
     usleep(self.unit * 3);
+     NSLog(@"character space");
 }
 
 - (void) wordSpace
 {
     usleep(self.unit * 7);
+    NSLog(@"wordspace");
 }
 
 #pragma mark - UITextFieldDelegate

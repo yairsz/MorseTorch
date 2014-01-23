@@ -110,6 +110,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="90000" minValue="90000" maxValue="600000" translatesAutoresizingMaskIntoConstraints="NO" id="jOy-Ko-QWD">
+                                <rect key="frame" x="231" y="236" width="71" height="313"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.transform.rotation.z">
+                                        <real key="value" value="-1.571"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="speedSliderChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Ti6-2e-Xjb"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -130,6 +142,10 @@
                             <constraint firstItem="c9Q-MK-hSw" firstAttribute="top" secondItem="3gX-5r-I14" secondAttribute="bottom" constant="8" id="knD-0e-UJo"/>
                             <constraint firstAttribute="centerX" secondItem="t4o-9n-q8X" secondAttribute="centerX" constant="35" id="q3b-by-ljZ"/>
                             <constraint firstAttribute="trailing" secondItem="3gX-5r-I14" secondAttribute="trailing" constant="20" symbolic="YES" id="qiy-4g-nAR"/>
+                            <constraint firstItem="s9K-Wy-top" firstAttribute="top" secondItem="jOy-Ko-QWD" secondAttribute="bottom" constant="20" id="raL-wS-3V5"/>
+                            <constraint firstAttribute="trailing" secondItem="jOy-Ko-QWD" secondAttribute="trailing" constant="20" symbolic="YES" id="s2s-X1-Wo8"/>
+                            <constraint firstItem="jOy-Ko-QWD" firstAttribute="leading" secondItem="c9Q-MK-hSw" secondAttribute="trailing" constant="8" id="vPR-Rr-7CJ"/>
+                            <constraint firstItem="jOy-Ko-QWD" firstAttribute="top" secondItem="lv8-ay-vh3" secondAttribute="bottom" constant="8" id="yIe-HW-t4I"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -139,6 +155,7 @@
                         <outlet property="morseLabel" destination="lv8-ay-vh3" id="NOt-ZU-CW8"/>
                         <outlet property="morseTextView" destination="c9Q-MK-hSw" id="Yet-TL-Le2"/>
                         <outlet property="originalTextView" destination="t4o-9n-q8X" id="WoE-Ne-nJY"/>
+                        <outlet property="speedSlider" destination="jOy-Ko-QWD" id="hc4-cE-0JD"/>
                         <outlet property="startButton" destination="ZDb-Dr-0lh" id="WBr-e9-qCN"/>
                         <outlet property="stopButton" destination="fGz-ms-ZdN" id="coh-UG-qLN"/>
                     </connections>
