@@ -7,11 +7,10 @@
 //
 
 #import "YSMorseTorchViewController.h"
-#import "YSTorchController.h"
 #import "YSAppDelegate.h"
 #import <ProgressHUD.h>
 
-#define INITIAL_UNIT 100000
+
 
 @interface YSMorseTorchViewController ()
 {
@@ -24,14 +23,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UILabel *morseLabel;
-@property (weak, nonatomic) IBOutlet UILabel *characterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *originalCharacterLabel;
 @property (weak, nonatomic) IBOutlet UISlider *speedSlider;
 
 
 @property (nonatomic) NSArray * morseCodeArray;
-@property (weak, nonatomic) YSTorchController * sharedTorch;
 @property (strong, nonatomic) NSString * stringToMorsify;
-@property int unit;
+@property (strong, nonatomic) YSMorseTorchTranslator * torchTranslator;
+
 
 
 @end
@@ -42,10 +41,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    YSAppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
-    self.sharedTorch = appDelegate.sharedTorch;
-    self.unit = INITIAL_UNIT;
+    self.torchTranslator = [YSMorseTorchTranslator sharedTranslator];
+    self.torchTranslator.delegate = self;
 }
 
 -(void) textFieldDidEndEditing:(UITextField *)textField {
@@ -72,17 +69,25 @@
 
 #pragma mark - IB Actions
 - (IBAction)speedSliderChanged:(UISlider *)sender {
-    self.unit = sender.value;
+    self.torchTranslator.unit = sender.value;
 }
 
 
 - (IBAction)startButtonPressed:(UIButton *)sender {
     lastMorseEOL = 0;
     [self startMorseTorchSequence];
+    self.startButton.enabled = NO;
+    self.startButton.backgroundColor = [UIColor grayColor];
+    self.stopButton.enabled = YES;
+    self.stopButton.backgroundColor = [UIColor redColor];
 }
 
 - (IBAction)stopButtonPressed:(UIButton *)sender {
     [morseCodeQueue cancelAllOperations];
+    self.startButton.backgroundColor = [UIColor greenColor];
+    self.startButton.enabled = YES;
+    self.stopButton.backgroundColor = [UIColor grayColor];
+    self.stopButton.enabled = NO;
 }
 
 -(void) startMorseTorchSequence
@@ -95,47 +100,32 @@
         NSOperation * currentOperation = [[morseCodeQueue operations] lastObject];
         
             for (int i = 0; i < weakSelf.morseCodeArray.count; i++) {
+                
                 if (!currentOperation.isCancelled){
                     NSString * character = weakSelf.morseCodeArray[i];
                     [mainQueue addOperationWithBlock:^{
                         [weakSelf updateCharacterWithIndex:i];
                     }];
-                    for (int j = 0; j < character.length; j++) {
-                        NSString * morseCharacter = [character substringWithRange:NSMakeRange(j, 1)];
-                        if ([morseCharacter isEqualToString:@"."]) {
-//                            NSLog(@"dot if");
-                            [weakSelf dot];
-                            
-                        } else if ([morseCharacter isEqualToString:@"-"]) {
-//                            NSLog(@"dash if");
-                            [weakSelf dash];
-                        } else if ([morseCharacter isEqualToString:@" "]) {
-//                            NSLog(@"space if");
-                            [weakSelf characterSpace];
-                            continue;
-                        }
-                        if (j < character.length -1) {
-//                            NSLog(@"partspace if");
-                            [weakSelf partSpace];
-                        }
-                    }
-                [weakSelf wordSpace];
+                
+                    [self.torchTranslator transmitMorseCharacter:character];
                 }
             }
         [mainQueue addOperationWithBlock:^{
-            [ProgressHUD showSuccess:@"Success!"];
+            if (!currentOperation.isCancelled) {
+                [ProgressHUD showSuccess:@"Success!"];
+            }
+            [weakSelf clearTextViewMarkers];
+            self.startButton.backgroundColor = [UIColor greenColor];
+            self.startButton.enabled = YES;
+            self.stopButton.backgroundColor = [UIColor grayColor];
+            self.stopButton.enabled = NO;
         }];
+        
     }];
 }
 
--(void) stopMorseSequence
-{
-    [morseCodeQueue cancelAllOperations];
-    
-}
-
 - (void) updateCharacterWithIndex:(int) i {
-    self.characterLabel.text = [self.stringToMorsify substringWithRange:NSMakeRange(i,1)];
+    self.originalCharacterLabel.text = [self.stringToMorsify substringWithRange:NSMakeRange(i,1)];
     self.morseLabel.text = [self.morseCodeArray objectAtIndex:i];
     
     NSMutableAttributedString *attrMorseText = [self.morseTextView.attributedText mutableCopy];
@@ -162,39 +152,25 @@
     
 }
 
-#pragma mark - Morse Code
-- (void) dot
-{
-    [self.sharedTorch torchOn];
-    usleep(self.unit);
-    [self.sharedTorch torchOff];
-//    NSLog(@"dot");
+-(void) clearTextViewMarkers {
+    NSMutableAttributedString *attrMorseText = [self.morseTextView.attributedText mutableCopy];
+    [attrMorseText setAttributes:nil range:NSMakeRange(0,attrMorseText.length)];
+    NSMutableAttributedString *attrOriginalText = [self.originalTextView.attributedText mutableCopy];
+    [attrOriginalText setAttributes:nil range:NSMakeRange(0, attrOriginalText.length)];
+    self.morseTextView.attributedText = attrMorseText;
+    self.originalTextView.attributedText = attrOriginalText;
+    self.morseLabel.text = nil;
+    self.originalCharacterLabel.text = nil;
 }
 
-- (void) dash
-{
-    [self.sharedTorch torchOn];
-    usleep(self.unit*3);
-    [self.sharedTorch torchOff];
-//     NSLog(@"dash");
+- (void) didTransmitMorseCharacter:(NSString *)character {
+    NSOperationQueue * mainQueue = [NSOperationQueue mainQueue];
+    [mainQueue addOperationWithBlock:^{
+        [ProgressHUD showSuccess:character];
+    }];
+    
 }
 
--(void) partSpace {
-    usleep(self.unit*2);
-//     NSLog(@"partspace");
-}
-
-- (void) characterSpace
-{
-    usleep(self.unit * 3);
-//     NSLog(@"character space");
-}
-
-- (void) wordSpace
-{
-    usleep(self.unit * 7);
-//    NSLog(@"wordspace");
-}
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
