@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B009DFAB18935DCF006E20D7 /* CFMagicEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = B009DFAA18935DCF006E20D7 /* CFMagicEvents.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B009DFAE1893675C006E20D7 /* YSMorseCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = B009DFAD1893675C006E20D7 /* YSMorseCameraController.m */; };
 		B0385D251890AC670014C045 /* YSMorseTorchTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = B0385D241890AC670014C045 /* YSMorseTorchTranslator.m */; };
 		B04D2634188DC8D2000574E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04D2633188DC8D2000574E0 /* Foundation.framework */; };
 		B04D2636188DC8D2000574E0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04D2635188DC8D2000574E0 /* CoreGraphics.framework */; };
@@ -40,6 +42,10 @@
 
 /* Begin PBXFileReference section */
 		A19CFCACFE6443BC9AA503EB /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		B009DFA918935DCF006E20D7 /* CFMagicEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFMagicEvents.h; sourceTree = "<group>"; };
+		B009DFAA18935DCF006E20D7 /* CFMagicEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFMagicEvents.m; sourceTree = "<group>"; };
+		B009DFAC1893675C006E20D7 /* YSMorseCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMorseCameraController.h; sourceTree = "<group>"; };
+		B009DFAD1893675C006E20D7 /* YSMorseCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMorseCameraController.m; sourceTree = "<group>"; };
 		B0385D231890AC670014C045 /* YSMorseTorchTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YSMorseTorchTranslator.h; sourceTree = "<group>"; };
 		B0385D241890AC670014C045 /* YSMorseTorchTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSMorseTorchTranslator.m; sourceTree = "<group>"; };
 		B04D2630188DC8D2000574E0 /* MorseTorch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MorseTorch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,9 +138,13 @@
 		B04D2639188DC8D2000574E0 /* MorseTorch */ = {
 			isa = PBXGroup;
 			children = (
+				B009DFA918935DCF006E20D7 /* CFMagicEvents.h */,
+				B009DFAA18935DCF006E20D7 /* CFMagicEvents.m */,
 				B04D2642188DC8D2000574E0 /* YSAppDelegate.h */,
 				B04D2643188DC8D2000574E0 /* YSAppDelegate.m */,
 				B04D2645188DC8D2000574E0 /* Main.storyboard */,
+				B009DFAC1893675C006E20D7 /* YSMorseCameraController.h */,
+				B009DFAD1893675C006E20D7 /* YSMorseCameraController.m */,
 				B052DAB0188F246C00539D72 /* YSTorchController.h */,
 				B052DAB1188F246C00539D72 /* YSTorchController.m */,
 				B04D2648188DC8D2000574E0 /* YSMorseTorchViewController.h */,
@@ -313,11 +323,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B04D264A188DC8D2000574E0 /* YSMorseTorchViewController.m in Sources */,
+				B009DFAB18935DCF006E20D7 /* CFMagicEvents.m in Sources */,
 				B04D2644188DC8D2000574E0 /* YSAppDelegate.m in Sources */,
 				B04D2640188DC8D2000574E0 /* main.m in Sources */,
 				B0385D251890AC670014C045 /* YSMorseTorchTranslator.m in Sources */,
 				B04D266A188DCBC7000574E0 /* NSString+MorseCode.m in Sources */,
 				B052DAB2188F246C00539D72 /* YSTorchController.m in Sources */,
+				B009DFAE1893675C006E20D7 /* YSMorseCameraController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

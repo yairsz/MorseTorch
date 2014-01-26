@@ -12,7 +12,11 @@
 
 @optional
 
-- (void) didTransmitMorseCharacter:(NSString *) character;
+- (void) didTransmitCharacterAtIndex:(NSInteger) i;
+- (void) willTransmitCharacterAtIndex:(NSInteger) i;
+- (void) didFinishTransmitingMorseArray;
+- (void) willTransmitCalibration;
+- (void) didTransmitCalibration;
 
 @end
 
@@ -23,6 +27,8 @@
 
 +(YSMorseTorchTranslator *) sharedTranslator;
 
-- (void) transmitMorseCharacter:(NSString *) character;
+- (void) transmitMorseArray: (NSArray *) morseArray;
+- (void) cancelTransmission;
+- (void) transmitCalibration;
 
 @end

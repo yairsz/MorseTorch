@@ -9,14 +9,17 @@
 #import "YSAppDelegate.h"
 #import "YSTorchController.h"
 
+
 @implementation YSAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+
     
     return YES;
+    
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

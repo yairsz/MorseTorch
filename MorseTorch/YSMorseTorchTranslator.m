@@ -8,16 +8,21 @@
 
 #import "YSMorseTorchTranslator.h"
 #import "YSTorchController.h"
+#import "NSString+MorseCode.h"
 
 #define INITIAL_UNIT 100000
+#define CALIBRATION_STRING @"s a a  "
 
 @interface YSMorseTorchTranslator ()
 
 @property (weak, nonatomic) YSTorchController * sharedTorch;
+@property (strong, nonatomic) NSOperationQueue * morseCodeQueue;
 
 @end
 
 @implementation YSMorseTorchTranslator
+
+#pragma mark - Initialization
 
 +(YSMorseTorchTranslator *) sharedTranslator{
     static dispatch_once_t pred;
@@ -31,7 +36,74 @@
     return shared;
 }
 
+- (NSOperationQueue *) morseCodeQueue
+{
+    if (!_morseCodeQueue) {
+        _morseCodeQueue = [NSOperationQueue new];
+        [_morseCodeQueue setMaxConcurrentOperationCount:1];
+    }
+    return _morseCodeQueue;
+}
 
+#pragma mark - Calibration
+
+- (void) transmitCalibration {
+    
+    NSOperationQueue * mainQueue = [NSOperationQueue mainQueue];
+    [self.morseCodeQueue addOperationWithBlock:^{
+        NSOperation * currentOperation = [[self.morseCodeQueue operations] lastObject];
+        NSString  * calibrationString = CALIBRATION_STRING;
+        NSArray * morseArray = [calibrationString morseCodeArray];
+        [mainQueue addOperationWithBlock:^{
+            [self.delegate willTransmitCalibration];
+        }];
+        for (int i = 0; i < morseArray.count; i++) {
+            
+            if (!currentOperation.isCancelled){
+                NSString * character = morseArray[i];
+                [self transmitMorseCharacter:character];
+            }
+        }
+        if (!currentOperation.isCancelled){
+            [mainQueue addOperationWithBlock:^{
+                [self.delegate didTransmitCalibration];
+            }];
+        }
+    }];
+    
+}
+
+#pragma mark - Transmit Message
+
+- (void) transmitMorseArray: (NSArray *) morseArray
+{
+    NSOperationQueue * mainQueue = [NSOperationQueue mainQueue];
+    [self.morseCodeQueue addOperationWithBlock:^{
+        NSOperation * currentOperation = [[self.morseCodeQueue operations] lastObject];
+        for (int i = 0; i < morseArray.count; i++) {
+            
+            if (!currentOperation.isCancelled){
+                NSString * character = morseArray[i];
+                
+                [mainQueue addOperationWithBlock:^{
+                    [self.delegate willTransmitCharacterAtIndex:i];
+                }];
+                [self transmitMorseCharacter:character];
+                if (!currentOperation.isCancelled){
+                    [mainQueue addOperationWithBlock:^{
+                        [self.delegate didTransmitCharacterAtIndex:i];
+                    }];
+                }
+            }
+        }
+        if (!currentOperation.isCancelled){
+            [mainQueue addOperationWithBlock:^{
+                [self.delegate didFinishTransmitingMorseArray];
+            }];
+        }
+        
+    }];
+}
 
 - (void)transmitMorseCharacter:(NSString *)character
 {
@@ -49,14 +121,15 @@
             [self wordSpace];
             continue;
         }
-        if (j < character.length -1) {
-            //                            NSLog(@"partspace if");
+
             [self partSpace];
-        }
-        
     }
-    [self.delegate didTransmitMorseCharacter:character];
     [self characterSpace];
+}
+
+- (void) cancelTransmission
+{
+    [self.morseCodeQueue cancelAllOperations];
 }
 
 #pragma mark - Morse Code
@@ -83,7 +156,7 @@
 }
 
 -(void) partSpace {
-    usleep(self.unit*2);
+    usleep(self.unit);
     //     NSLog(@"partspace");
 }
 
@@ -92,6 +165,7 @@
     usleep(self.unit * 3);
     //     NSLog(@"character space");
 }
+
 
 
 

@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "YSTorchController.h"
+#import "CFMagicEvents.h"
 
 @interface YSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) YSTorchController *sharedTorch;
+@property (nonatomic) CFMagicEvents * cfMagicEvents;
+
 
 @end
