@@ -66,6 +66,7 @@
     [self.inputTextField endEditing:YES];
     if (self.willCalibrate) [self.torchTranslator transmitCalibration];
     [self.torchTranslator transmitMorseArray:self.morseCodeArray];
+    if (self.willCalibrate) self.speedSlider.enabled = NO;
     self.startButton.enabled = NO;
     self.startButton.backgroundColor = [UIColor grayColor];
     self.stopButton.enabled = YES;
@@ -79,6 +80,7 @@
     self.startButton.enabled = YES;
     self.stopButton.backgroundColor = [UIColor grayColor];
     self.stopButton.enabled = NO;
+    self.speedSlider.enabled = YES;
 }
 
 
@@ -123,6 +125,7 @@
     self.startButton.enabled = YES;
     self.stopButton.backgroundColor = [UIColor grayColor];
     self.stopButton.enabled = NO;
+    self.speedSlider.enabled = YES;
 }
 
 - (void) didTransmitCalibration

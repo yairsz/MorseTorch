@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YSMorseCameraController : UIViewController
+@interface YSMorseCameraController : UIViewController <UITextFieldDelegate>
 
 @end

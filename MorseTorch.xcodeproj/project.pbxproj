@@ -197,8 +197,8 @@
 			buildConfigurationList = B04D2662188DC8D2000574E0 /* Build configuration list for PBXNativeTarget "MorseTorch" */;
 			buildPhases = (
 				779EB44FB0264ADBBF39CCC1 /* Check Pods Manifest.lock */,
-				B04D262C188DC8D2000574E0 /* Sources */,
 				B04D262D188DC8D2000574E0 /* Frameworks */,
+				B04D262C188DC8D2000574E0 /* Sources */,
 				B04D262E188DC8D2000574E0 /* Resources */,
 				BE0015D4A3914855B327EC2B /* Copy Pods Resources */,
 			);

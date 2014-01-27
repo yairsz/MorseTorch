@@ -16,26 +16,34 @@
     NSMutableArray * morseSymbolsArray = [NSMutableArray new];
     for (int i = 0; i < stringLowCaps.length; i++) {
         NSString * character = [stringLowCaps substringWithRange:NSMakeRange(i, 1)];
-        NSString * morseSymbol = [self moresCodeFromCharacter:character];
+        NSString * morseSymbol = [self morseCodeFromCharacter:character];
         [morseSymbolsArray addObject:morseSymbol];
     }
     return [NSArray arrayWithArray:morseSymbolsArray];
 
 }
 
-- (NSString *) moresCodeFromCharacter:(NSString *) character //returns morse for one character
+- (NSString *) morseCodeFromCharacter:(NSString *) character //returns morse for one character
 {
     NSString * firstChar = [character substringWithRange:NSMakeRange(0, 1)];
     NSDictionary * morseDict = [self morseDictionary];
     return morseDict[firstChar] ? morseDict[firstChar] : @"?";
 }
 
-- (NSString *) alphanumericFromMorseString: (NSString *) morseString{
-    
-    return nil;
-    
+- (NSString *) alphanumericFromMorseArray: (NSArray *) morseArray
+{
+    NSMutableString * string = [NSMutableString new];
+    for (int i = 0; i < morseArray.count; i++) {
+        [string appendString:[self alphanumericFromMorseArray:morseArray[i]]];
+    }
+    return (NSString *)[string copy];
 }
 
+- (NSString *) alphanumericFromMorseCharacter
+{
+    NSDictionary * morseToAlphaDict = [self morseToAlphaDictionary];
+    return morseToAlphaDict[self] ? morseToAlphaDict[self] : @"?";
+}
 - (NSDictionary *) morseDictionary
 {
     return @{
@@ -118,7 +126,7 @@
              @"---.." :@"8",
              @"----." :@"9",
              @"-----" :@"0",
-             @"  ":@" "
+             @" ":@" "
 
              };
 }

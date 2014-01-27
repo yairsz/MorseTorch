@@ -11,7 +11,7 @@
 #import "NSString+MorseCode.h"
 
 #define INITIAL_UNIT 100000
-#define CALIBRATION_STRING @"s a a  "
+#define CALIBRATION_STRING @"s e"
 
 @interface YSMorseTorchTranslator ()
 

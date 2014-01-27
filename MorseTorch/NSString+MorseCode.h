@@ -12,6 +12,7 @@
 
 
 - (NSArray *) morseCodeArray; //returns array of morse code symbols for each character
-- (NSString *) moresCodeFromCharacter:(NSString *) character; //returns morse for one character
-
+- (NSString *) morseCodeFromCharacter:(NSString *) character; //returns morse for one character
+- (NSString *) alphanumericFromMorseArray: (NSArray *) morseString;
+- (NSString *) alphanumericFromMorseCharacter;
 @end

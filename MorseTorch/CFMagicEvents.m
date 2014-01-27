@@ -96,6 +96,8 @@
     videoDataOutput.videoSettings = settings;
     [settings release];
     
+    [self configureCameraForHighestFrameRate:captureDevice];
+    
 //    AVCaptureConnection *conn = [videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
 //    if (conn.isVideoMinFrameDurationSupported)
 //        conn.videoMinFrameDuration = CMTimeMake(1, NUMBER_OF_FRAME_PER_S);
@@ -135,6 +137,7 @@
             device.activeFormat = bestFormat;
             device.activeVideoMinFrameDuration = bestFrameRateRange.minFrameDuration;
             device.activeVideoMaxFrameDuration = bestFrameRateRange.minFrameDuration;
+            device.exposureMode = AVCaptureExposureModeLocked;
             [device unlockForConfiguration];
         }
     }
