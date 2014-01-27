@@ -36,6 +36,14 @@
     return shared;
 }
 
+- (BOOL) hasTorch {
+    if (self.sharedTorch) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (NSOperationQueue *) morseCodeQueue
 {
     if (!_morseCodeQueue) {

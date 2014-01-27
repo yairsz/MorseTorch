@@ -24,6 +24,7 @@
 
 @property (unsafe_unretained) id <YSMorseTorchTranslatorDelegate> delegate;
 @property int unit;
+@property (readonly) BOOL hasTorch;
 
 +(YSMorseTorchTranslator *) sharedTranslator;
 

@@ -62,6 +62,10 @@
 
 
 - (IBAction)startButtonPressed:(UIButton *)sender {
+    
+    if (!self.torchTranslator.hasTorch) {
+        [self showAlertForNoTorch];
+    }
     lastMorseEOL = 0;
     [self.inputTextField endEditing:YES];
     if (self.willCalibrate) [self.torchTranslator transmitCalibration];
@@ -81,6 +85,13 @@
     self.stopButton.backgroundColor = [UIColor grayColor];
     self.stopButton.enabled = NO;
     self.speedSlider.enabled = YES;
+}
+
+- (void) showAlertForNoTorch
+{
+    NSString * message = @"This device has no torch. You can use the send functions but no morse message will be sent";
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"No Torch" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
 }
 
 
